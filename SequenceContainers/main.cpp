@@ -51,17 +51,25 @@ void main()
 	// Придикаты  - функция которая что-то проверяет.
 
 	std::vector<int> vec = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 };
-	for (int i = 0; i < vec.size(); i++)
+	try
 	{
-		cout << vec[i] << tab;
+		for (int i = 0; i < vec.size(); i++)
+		{
+			cout << vec.at(i) << tab;
+			//cout << vec[i] << tab;
+		}
+		cout << endl;
 	}
-	cout << endl;
+	catch (const std::exception& e)
+	{
+		std::cerr << e.what() << endl;
+	}
 	vector_properties(vec);
 	
 	vec.push_back(144);
 	vector_properties(vec);
 	
-	vec.resize(15);      // задаёт фактический размер вектора
+	vec.resize(12);      // задаёт фактический размер вектора
 	for (int i : vec)cout << i << tab; cout << endl;
 	vector_properties(vec);
 	
@@ -74,7 +82,21 @@ void main()
 	// больше текущего capacity();
 	for (int i : vec)cout << i << tab; cout << endl;
 	vector_properties(vec);
-
+	cout << vec.front() << endl;
+	cout << vec.back() << endl;
+	cout << vec.data() << endl;
+	for (int i = 0; i < vec.size(); i++)
+	{
+		cout << *(vec.data() + i) << tab;
+		// cout << vec.data()[i] << tab;
+	}
+	cout << endl;
+	cout << "Iterators: " << endl;
+	for (std::vector<int>::iterator it = vec.begin(); it != vec.end(); ++it)
+	{
+		cout << *it << tab;
+	}
+	cout << endl;
 #endif // STL_VECTOR
 	
 }
