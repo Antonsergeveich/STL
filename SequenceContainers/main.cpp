@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<array>
 #include<vector>
 using std::cin;
@@ -14,7 +14,7 @@ void main()
 {
 	setlocale(LC_ALL, "");
 #ifdef STL_ARRAY
-	//array - это контейнер, который хранит данные в виде статического массива.
+	//array - СЌС‚Рѕ РєРѕРЅС‚РµР№РЅРµСЂ, РєРѕС‚РѕСЂС‹Р№ С…СЂР°РЅРёС‚ РґР°РЅРЅС‹Рµ РІ РІРёРґРµ СЃС‚Р°С‚РёС‡РµСЃРєРѕРіРѕ РјР°СЃСЃРёРІР°.
 	const int SIZE = 5;
 	std::array<int, SIZE> arr = { 3, 5, 8 };
 	for (int i = 0; i < SIZE; i++)
