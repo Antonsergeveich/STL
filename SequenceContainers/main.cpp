@@ -20,6 +20,8 @@ using std::endl;
 
 template<typename T>void vector_properties(const std::vector<T>& vec);
 
+//Sequence containers (линейные контейнеры или последовательные): array, vector, list, forward_list, deque.
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -51,11 +53,20 @@ void main()
 	}
 	cout << endl;
 	vector_properties(vec);
+	
 	vec.push_back(144);
+	vector_properties(vec);
+	
+	vec.resize(15);
+	for (int i : vec)cout << i << tab; cout << endl;
 	vector_properties(vec);
 #endif // STL_VECTOR
 	
 }
+
+// Для работы с Capacity вектор обеспечивае следующие функции: 
+// resize(), reserve(), shrink_to_fit()
+
 template<typename T>void vector_properties(const std::vector<T>& vec)
 {
 	cout << "Size:\t " << vec.size() << endl;
