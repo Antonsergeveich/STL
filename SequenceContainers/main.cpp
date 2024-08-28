@@ -9,6 +9,7 @@
 #include<iostream>
 #include<array>
 #include<vector>
+#include<list>
 using std::cin;
 using std::cout;
 using std::endl;
@@ -16,7 +17,9 @@ using std::endl;
 #define tab "\t"
 #define delimiter "\n----------------------\n"
 //#define STL_ARRAY
-#define STL_VECTOR
+//#define STL_VECTOR
+#define STL_LIST
+
 
 template<typename T>void vector_properties(const std::vector<T>& vec);
 
@@ -121,6 +124,16 @@ void main()
 	vec.erase(vec.begin() + index_delete, vec.begin() + index_delete + number_of_deleted);
 	for (int i : vec)cout << i << tab; cout << endl;
 #endif // STL_VECTOR
+
+#ifdef STL_LIST
+	std::list<int> list = { 3,5,8,13,21,34,55 };
+	//for (int i = 0; i < list.size(); i++)cout << list[i] << tab; cout << endl;
+	//так как оператор индексирование работает с арифметикой указателей
+	//а арифметика указателей подразумевает переход по адресам в непрерывной области памяти
+	//а наш list(СПИСОК) - элементы в произвольных областях памяти, 
+	//такой вывод элементов  с помощью цикла for не возможен.
+#endif // STL_LIST
+
 }
 
 // Для работы с Capacity вектор обеспечивае следующие функции: 
