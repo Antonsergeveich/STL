@@ -19,8 +19,8 @@ using std::endl;
 #define tab "\t"
 #define delimiter "\n----------------------\n"
 //#define STL_ARRAY
-//#define STL_VECTOR
-#define STL_LIST
+#define STL_VECTOR
+//#define STL_LIST
 
 
 template<typename T>void vector_properties(const std::vector<T>& vec);
@@ -111,8 +111,11 @@ void main()
 	cout << "Введите индекс добавляемого элемента: "; cin >> index;
 	cout << "Введите значение добавляемого элемента: "; cin >> value;
 	//https://legacy.cplusplus.com/reference/vector/vector/insert/
-	vec.insert(vec.begin() + index, value);
-	for (int i : vec)cout << i << tab; cout << endl;
+	/*vec.insert(vec.begin() + index, value);
+	for (int i : vec)cout << i << tab; cout << endl;*/
+	std::vector<int>::iterator position = vec.begin();
+	std::advance(position, index);
+	vec.insert(position, value);
 	cout << "Введите количество добавлений: "; cin >> number_of_additions;
 	//void insert (iterator position, size_type n, const value_type& val);
 	vec.insert(vec.begin() + index, number_of_additions, value);
