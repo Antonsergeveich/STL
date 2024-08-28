@@ -1,4 +1,5 @@
 ﻿#include<iostream>
+#include<deque>
 using namespace std;
 
 using std::cin;
@@ -8,10 +9,10 @@ using std::endl;
 #define tab "\t"
 #define delimiter "\n------------------------------\n"
 
-class Element //Описывает структуру элемента
+class Element 
 {
-	int Data;          //Значение элемента
-	Element* pNext;    //Pointer to Next - указатель на следующий элемент
+	int Data;          
+	Element* pNext;    
 	static int count;
 public:
 	Element(int Data, Element* pNext = nullptr) :Data(Data), pNext(pNext)
@@ -26,6 +27,7 @@ public:
 	}
 	friend class ForwardList;
 	friend class Iterator;
+	friend class Stack;
 };
 int Element::count = 0;
 class Iterator
@@ -68,10 +70,11 @@ public:
 		return Temp->Data;
 	}
 };
-class ForwardList //односвязный список
+class ForwardList 
 {
-	Element* Head; //Голова списка, указывает на начальный элемент списка
-	unsigned int size; //Размер списка
+protected:
+	Element* Head; 
+	unsigned int size;
 public:
 	Iterator begin()
 	{
@@ -87,38 +90,34 @@ public:
 	}
 	ForwardList()
 	{
-		//Конструктор по умолчанию который создаёт пустой список
 		Head = nullptr;
 		size = 0;
 		cout << "LConstructor:\t" << this << endl;
 	}
-	explicit ForwardList(unsigned int size) : ForwardList() //explicit запрещает не явное преобразование типов
+	explicit ForwardList(unsigned int size) : ForwardList() 
 	{
 		while (size--)push_front(0);
 	}
 	ForwardList(const ForwardList& other) : ForwardList()
 	{
-		/*for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
-			push_back(Temp->Data);*/
-		*this = other; //Повторно используем код CopyAssignment
+		*this = other; 
 		cout << "CopyConstructor:\t" << this << endl;
 	}
 	ForwardList(ForwardList&& other) : ForwardList()
 	{
-		*this = std::move(other); //Функция std::move() принудительно вызывает MoveAssignment для класса
-		cout << "MoveConstructor:" << this << endl; //Конструктор перемещения
+		*this = std::move(other);
+		cout << "MoveConstructor:" << this << endl; 
 	}
-	ForwardList(const initializer_list<int>& il) : ForwardList() //Single-argument constructor
+	ForwardList(const initializer_list<int>& il) : ForwardList() 
 	{
 		for (const int* it = il.begin(); it != il.end(); it++)
 		{
-			//it - iterator
 			push_back(*it);
 		}
 	}
 	~ForwardList()
 	{
-		while (Head)pop_front(); //Пока Head указывает на какой-то элемент (всё что не ноль true) цикл работает, на ноль - false конец. 
+		while (Head)pop_front(); 
 		cout << "LDestructor:\t" << this << endl;
 	}
 
@@ -126,7 +125,6 @@ public:
 	ForwardList& operator = (const ForwardList& other)
 	{
 		if (this == &other)return *this;
-		//while (Head)pop_front();
 		this->~ForwardList();
 		for (Element* Temp = other.Head; Temp; Temp = Temp->pNext)
 			push_front(Temp->Data);
@@ -143,7 +141,6 @@ public:
 		other.size = 0;
 		cout << "MoveAssignment:\t" << this << endl;
 	}
-
 	const int& operator[](int index)const
 	{
 		Element* Temp = Head;
@@ -163,18 +160,15 @@ public:
 		Head = new Element(Data, Head);
 		size++;
 	}
-
 	void push_back(int Data)
 	{
-		if (Head == nullptr)return push_front(Data); //если список пустой, добавляем элемент вначало списка
-		//Element* New = new Element(Data); //Создаём новый элемент
-		Element* Temp = Head; //Создаём указатель на текущий элемент
-		//while((*Temp).pNext)
-		while (Temp->pNext)//Пока текущий элемент не указывает на ноль переходим на следующий элемент списка
+		if (Head == nullptr)return push_front(Data); 
+		Element* Temp = Head; 
+		while (Temp->pNext)
 		{
 			Temp = Temp->pNext;
 		}
-		Temp->pNext = new Element(Data);// После того как мы оказались в конце списка, можно добавлять новый элемент
+		Temp->pNext = new Element(Data);
 		size++;
 	}
 
@@ -182,32 +176,25 @@ public:
 
 	void pop_front()
 	{
-		if (Head == nullptr)return; //если возвращаемое значение void, то return просто прерывает работу функции и возвращает управление на место вызова
-		//1)Запоминаем адрес удаляемого элемента:
+		if (Head == nullptr)return; 
 		Element* Erased = Head;
-		//2)Исключаем удаляемый элемент из списка:
 		Head = Erased->pNext;
-		//3)Удаляем элемент из памяти:
 		delete Erased;
 		size--;
 	}
-
 	void pop_back()
 	{
 		if (Head->pNext == nullptr)return pop_front();
-		Element* Temp = Head; // В односвязный список можно зайти только через голову
-		while (Temp->pNext->pNext)//В условии обращаемся к указателю pNext
+		Element* Temp = Head; 
+		while (Temp->pNext->pNext)
 		{
-			Temp = Temp->pNext; //Проходим по элементам списка
+			Temp = Temp->pNext;
 		}
-		//2) Удаляем последний элемент из памяти:
 		delete Temp->pNext;
-		//3) Обнуляем указатель на последний элемент:
 		Temp->pNext = nullptr;
 		size--;
 	}
-
-	void insert(int index, int Data) //Вставляет элемент по индексу
+	void insert(int index, int Data) 
 	{
 		if (index > size)
 		{
@@ -215,13 +202,13 @@ public:
 			return;
 		}
 		if (index == 0)return push_front(Data);
-		Element* Temp = Head; //Создаём итератор который будет указывать на текущий элемент в списке
-		for (int i = 0; i < index - 1; i++) //идём по списку до элемента перед добавляемым
+		Element* Temp = Head; 
+		for (int i = 0; i < index - 1; i++) 
 		{
 			if (Temp->pNext == nullptr)break;
 			Temp = Temp->pNext;
 		}
-		Temp->pNext = new Element(Data, Temp->pNext); //в текущий записываем добавляемый
+		Temp->pNext = new Element(Data, Temp->pNext);
 		size++;
 	}
 	void erase(int index)
@@ -232,15 +219,15 @@ public:
 			return;
 		}
 		if (index == 0)return pop_front();
-		Element* Temp = Head;//Создаём итератор и начинаем идти по элементам с головы списка
-		for (int i = 0; i < index - 1; i++)//Идём до нужного элемента
+		Element* Temp = Head;
+		for (int i = 0; i < index - 1; i++)
 		{
 			if (Temp->pNext == nullptr)break;
 			Temp = Temp->pNext;
 		}
-		Element* Erased = Temp->pNext; // Сохраняем удаляемый элемент
-		Temp->pNext = Temp->pNext->pNext; // убираем элемент из списка
-		delete Erased;// удаляем элемент из памяти
+		Element* Erased = Temp->pNext; 
+		Temp->pNext = Temp->pNext->pNext; 
+		delete Erased;
 		size--;
 	}
 
@@ -259,173 +246,50 @@ public:
 ForwardList operator+(const ForwardList& left, const ForwardList& right)
 {
 	ForwardList buffer = left;
-	//for (int i = 0; i < left.get_size(); i++)buffer.push_back(left[i]);
 	for (int i = 0; i < right.get_size(); i++)buffer.push_back(right[i]);
 	return buffer;
 }
 void Print(int arr[])
 {
-	//cout << typeid(arr).name() << endl;
-	//cout << sizeof(arr) << endl;
 	for (int i = 0; i < sizeof(arr) / sizeof(arr[0]); i++)
 	{
 		cout << arr[i] << tab;
 	}
 	cout << endl;
-
-	/*for (int i : arr)
-	{
-		cout << i << tab;
-	}
-	cout << endl;*/
 }
 
-//#define BASE_CHECK 
-//#define COUNT_CHECK
-//#define SIZE_CONSTRUCTOR_CHECK
-//#define OPERATOR_PLUS_CHECK
-//#define INITIALIZER_LIST_CONSTRUCTOR_CHECK
-//#define RANGE_BASED_FOR_ARRAY
-#define RANGED_BASED_FOR_LIST
+class Stack :public ForwardList
+{
+public:
+	void push(int Data)
+	{
+		push_front(Data);
+	}
+	int pop()
+	{
+		int Data = Head->Data;
+		pop_front();
+		return Data;
+	}
+	int depth()const
+	{
+		return size;
+	}
+};
 
 void main()
 {
 	setlocale(LC_ALL, "");
-#ifdef BASE_CHECK
-	int n;
-	cout << "Введите воличество элементов списка: "; cin >> n;
-	ForwardList list;
-	for (int i = 0; i < n; i++)
+	Stack stack;
+	stack.push(3);     //Stack bottom ( дно стэка )
+	stack.push(5);
+	stack.push(8);
+	stack.push(13);
+	stack.push(21);    //Stack top ( вершина стэка )
+	cout << "Depth: " << stack.depth() << endl;
+	while (stack.depth())
 	{
-		//list.push_front(rand() % 100);
-		list.push_front(rand() % 100);
+		cout << stack.pop() << endl;
 	}
-	list.print();
-	list.push_back(123);
-	list.print();
-	list.pop_front();
-	list.print();
-	int index;
-	int value;
-	cout << "Введите индекс добавляемого элемента: "; cin >> index;
-	cout << "Введите значение добавляемого элемента: "; cin >> value;
-	list.insert(index, value);
-	list.print();
-#endif // BASE_CHECK
-
-#ifdef COUNT_CHECK
-	ForwardList list1;
-	list1.push_back(3);
-	list1.push_back(5);
-	list1.push_back(8);
-	list1.push_back(13);
-	list1.push_back(21);
-	list1.print();
-
-	ForwardList list2;
-	list2.push_back(34);
-	list2.push_back(55);
-	list2.push_back(89);
-	list2.print();
-#endif // COUNT_CHECK
-
-#ifdef SIZE_CONSTRUCTOR_CHECK
-	ForwardList list(7);
-	for (int i = 0; i < list.get_size(); i++)
-	{
-		list[i] = rand() % 100;
-	}
-	for (int i = 0; i < list.get_size(); i++)
-	{
-		cout << list[i] << tab;
-	}
-	cout << endl;
-#endif // SIZE_CONSTRUCTOR_CHECK
-
-#ifdef OPERATOR_PLUS_CHECK
-	//ForwardList list1;
-//list1.push_back(3);
-//list1.push_back(5);
-//list1.push_back(8);
-//list1.push_back(13);
-//list1.push_back(21);
-//list1.print();
-
-//ForwardList list2;
-//list2.push_back(34);
-//list2.push_back(55);
-//list2.push_back(89);
-//list2.print();
-
-//cout << delimiter << endl;
-////ForwardList list3 = list1 + list2;	//CopyConstructor
-//cout << delimiter << endl;
-//ForwardList list3;
-//cout << delimiter << endl;
-//list3 = list1 + list2;	//CopyAssignment
-//cout << delimiter << endl;
-//list3.print();  
-#endif // OPERATOR_PLUS_CHECK
-
-#ifdef INITIALIZER_LIST_CONSTRUCTOR_CHECK
-	ForwardList list1 = { 3,5,8,13,21 };
-	//Чтобы преобразовать из других типов в наш тип
-	//нужен конструктор с одним параметром(Single-argument constructor)
-	//и оператор присваивания (CopyAssignment) 
-	//причём второй без первого не работает;
-	list1.print();
-#endif // INITIALIZER_LIST_CONSTRUCTOR_CHECK
-
-#ifdef RANGE_BASED_FOR_ARRAY
-	int arr[] = { 3,5,8,13,21 };
-	//int* arr = new int[5] {3, 5, 8, 13, 21};
-	for (int i = 0; i < sizeof(arr) / sizeof(int); i++)
-	{
-		cout << arr[i] << tab;
-	}
-	cout << endl;
-
-	//Range-based for:
-	for (int i : arr) //Цикл for на основе диапазона; 
-		//Тип int переменной i будет использоваться для вычисления количества
-		//элементов массива (sizeof(arr) / sizeof(int)) в цикле for;
-	{
-		cout << i << tab;
-	}
-https://legacy.cplusplus.com/doc/tutorial/control/#:~:text=equal%20to%2050.-,Range%2Dbased%20for%20loop,-The%20for%2Dloop
-	//Range - это диапазон. Под данным термином в этом контексте понимают контейнер;
-	//т.е. контейнером иногда называют 'range';
-	//Следовательно, Range-base for - это цикл for для контейнеров. 
-	cout << endl;
-	cout << typeid(arr).name() << endl;
-	Print(arr);
-	//delete[] arr;  
-#endif // RANGE_BASED_FOR_ARRAY
-
-#ifdef RANGED_BASED_FOR_LIST
-	ForwardList list = { 3,5,8,13,21 };
-	//list.print();
-	for (int i : list)
-	{
-		//Error E2291 this range - based 'for' statement requires a suitable
-		//"begin" function and none was found;
-		//для этого оператора 'for', основанного на диапазоне,
-		//требуется подходящая функция "begin", но она не найдена;
-		//Error	C2672 'begin': no matching overloaded function found
-		//не найдена соответствующая перегруженная функция
-		//Error	C2672 'end': no matching overloaded function found	
-		//Error	C3536 '<begin>$L0': cannot be used before it is initialized	
-		//не может быть использован до его инициализации
-		//Error	C3536 '<end>$L0': cannot be used before it is initialized	
-		//Error	C2100 you cannot dereference an operand of type 'int'	
-		//вы не можете разыменовать операнд типа 'int'
-		cout << i << tab;
-	}
-	for (Iterator it = list.begin(); it != list.end(); ++it)
-	{
-		cout << *it << tab;
-	}
-	cout << endl;
-#endif // RANGED_BASED_FOR_LIST
-
+	cout << "Depth: " << stack.depth() << endl;
 }
