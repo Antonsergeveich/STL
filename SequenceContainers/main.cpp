@@ -20,7 +20,7 @@ using std::endl;
 #define delimiter "\n----------------------\n"
 //#define STL_ARRAY
 //#define STL_VECTOR
-//#define STL_LIST
+#define STL_LIST
 
 
 template<typename T>void vector_properties(const std::vector<T>& vec);
@@ -133,8 +133,7 @@ void main()
 #ifdef STL_LIST
 	std::list<int> list = { 3,5,8,13,21,34,55 };
 	//for (int i = 0; i < list.size(); i++)cout << list[i] << tab; cout << endl;
-	//так как оператор индексирование работает с арифметикой указателей
-	//а арифметика указателей подразумевает переход по адресам в непрерывной области памяти
+	//так как оператор индексирование работает в непрерывной области памяти
 	//а наш list(СПИСОК) - элементы в произвольных областях памяти, 
 	//такой вывод элементов  с помощью цикла for не возможен.
 	for (std::list<int>::iterator it = list.begin(); it != list.end(); ++it)
