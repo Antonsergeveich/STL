@@ -32,9 +32,6 @@ class Iterator
 {
 	Element* Temp;
 public:
-	//E0415	no suitable constructor exists to convert from "Element *" to "Iterator"
-	//не существует подходящего конструктора для преобразования
-	//из "Element *" в "Iterator".
 	Iterator(Element* Temp) : Temp(Temp)
 	{
 		cout << "IConstructor:\t" << this << endl;
@@ -43,19 +40,6 @@ public:
 	{
 		cout << "IDestructor:\t" << this << endl;
 	}
-	//E0349	no operator "!=" matches these operands	
-	//оператор "!=" не соответствует этим операндам
-	//C2676	binary '!=': 'Iterator' does not define this operator
-	//or a conversion to a type acceptable to the predefined operator	
-	//C2676 двоичный код '!=': 'Iterator' не определяет этот оператор
-	//или преобразование к типу, приемлемому для предопределенного оператора
-	//C2675	unary '++': 'Iterator' does not define this operator
-	//or a conversion to a type acceptable to the predefined operator
-	//C2100	you cannot dereference an operand of type 'Iterator'
-	//C2100 не удается разыменовать операнд типа 'Iterator' в списке
-	//C2440	'initializing': cannot convert from 'Iterator' to 'int'
-	//C2440 "Инициализация": не удается преобразовать из списка
-	//'Iterator' в 'int' 
 	Iterator& operator++()
 	{
 		Temp = Temp->pNext;
@@ -90,8 +74,6 @@ class ForwardList //односвязный список
 	unsigned int size; //Размер списка
 public:
 	Iterator begin()
-		//E0020 identifier "Iterator" is undefined	
-		//Идентификатор "Iterator" не определен
 	{
 		return Head;
 	}
@@ -113,10 +95,6 @@ public:
 	explicit ForwardList(unsigned int size) : ForwardList() //explicit запрещает не явное преобразование типов
 	{
 		while (size--)push_front(0);
-		/*for (int i = 0; i < size; i++)
-		{
-			push_front(rand() % 100);
-		}*/
 	}
 	ForwardList(const ForwardList& other) : ForwardList()
 	{
@@ -130,21 +108,8 @@ public:
 		*this = std::move(other); //Функция std::move() принудительно вызывает MoveAssignment для класса
 		cout << "MoveConstructor:" << this << endl; //Конструктор перемещения
 	}
-	//Когда функция возвращает значение по значению
-	//на месте вызова создаётся временный константный безымянный объект 
-	//Когда существующий или создаваемый объект
-	//инициализируется возвращаемым значением какой-то функции,
-	//тогда неявно вызывается MoveAssignment, MoveConstructor
 	ForwardList(const initializer_list<int>& il) : ForwardList() //Single-argument constructor
 	{
-		//initializer_list (список инициализации) - это контейнер, так же как и ForwardList
-		//Контейнер - это объект, который органинизует хранение других однотипных объектов в памяти.
-		//У любого контейнера в обязательном порядке есть два метода: 
-		// 1) begin() - возвращает итератор на начало контейнера.
-		// 2) end() - возвращает итератор на конец контейнера.
-		// initializer_list всякий раз неявно создаётся при 
-		// перечислении однотипных значений в фигурных скобках через запятую
-		//il.
 		for (const int* it = il.begin(); it != il.end(); it++)
 		{
 			//it - iterator
@@ -154,10 +119,6 @@ public:
 	~ForwardList()
 	{
 		while (Head)pop_front(); //Пока Head указывает на какой-то элемент (всё что не ноль true) цикл работает, на ноль - false конец. 
-		/*for (int i = 0; i = size; i++)
-		{
-			pop_front();
-		}*/
 		cout << "LDestructor:\t" << this << endl;
 	}
 
@@ -184,12 +145,6 @@ public:
 	}
 
 	const int& operator[](int index)const
-		//Когда возврвщаем значение по значению
-		//то на месте вызова создаётся временный безымянный объект, 
-		//а временный безымянный объект по умолчанию константный, 
-		//поэтому возвращаем по ссылке чтобы небыло ошибки C2106, E0137
-		//Error	E0137 expression must be a modifiable lvalue	
-		//Error	C2106	'=': left operand must be l - value	
 	{
 		Element* Temp = Head;
 		for (int i = 0; i < index; i++)Temp = Temp->pNext;
@@ -205,24 +160,12 @@ public:
 	//            Adding elements (добавление элемента): 
 	void push_front(int Data)
 	{
-		////1) Создаём новый элемент:
-		//Element* New = new Element(Data); //оператор new вызывает конструктор класса
-
-		////2) Пристыковываем новый элемент к началу списка:
-		//New->pNext = Head;
-
-		////3) Голову перенаправляем на новый элемент:
-		//Head = New;
-
 		Head = new Element(Data, Head);
-
 		size++;
 	}
 
 	void push_back(int Data)
 	{
-		//Поскольку push_back() НЕ умеет работать с пустым списком, мы проверяем,
-		//если список пуст, вызываем метод push_front(), который УМЕЕТ работать с пустым списком.
 		if (Head == nullptr)return push_front(Data); //если список пустой, добавляем элемент вначало списка
 		//Element* New = new Element(Data); //Создаём новый элемент
 		Element* Temp = Head; //Создаём указатель на текущий элемент
@@ -247,11 +190,6 @@ public:
 		//3)Удаляем элемент из памяти:
 		delete Erased;
 		size--;
-		/*new - создаёт объект в динамической памяти
-		new[] - создаёт массив объектов в динамической памяти
-
-		delete - удаляет один объект в динамической памяти
-		delete[] - удаляет массив объектов из динамической памяти*/
 	}
 
 	void pop_back()
@@ -259,10 +197,6 @@ public:
 		if (Head->pNext == nullptr)return pop_front();
 		Element* Temp = Head; // В односвязный список можно зайти только через голову
 		while (Temp->pNext->pNext)//В условии обращаемся к указателю pNext
-			//элемента Temp, который указывает на pNext следующего элемента.
-			//Если указатель pNext следующего элемента равен ноль,
-			//то такого элемента нет, условие не выполняется.
-			//pNext (указатель), pNext-> (элемент)
 		{
 			Temp = Temp->pNext; //Проходим по элементам списка
 		}
@@ -281,15 +215,12 @@ public:
 			return;
 		}
 		if (index == 0)return push_front(Data);
-		//if (index > size)return;
-		//Element* New = new Element(Data); //Выделяем память под новый элемент
 		Element* Temp = Head; //Создаём итератор который будет указывать на текущий элемент в списке
 		for (int i = 0; i < index - 1; i++) //идём по списку до элемента перед добавляемым
 		{
 			if (Temp->pNext == nullptr)break;
 			Temp = Temp->pNext;
 		}
-		//New->pNext = Temp->pNext; //записываем в добавляемый элемент адрес следующего элемента
 		Temp->pNext = new Element(Data, Temp->pNext); //в текущий записываем добавляемый
 		size++;
 	}
@@ -316,13 +247,6 @@ public:
 	//                  Methods:
 	void print()const
 	{
-		//Element* Temp = Head;   //Temp - это итератор.
-		//Итератор - это указатель, при помощи которого можно получить доступ к элементам структуры данных.  
-		//while (Temp)
-		//{
-		//	cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
-		//	Temp = Temp->pNext; //Переход на следующий элемент.
-		//}
 		for (Element* Temp = Head; Temp; Temp = Temp->pNext)
 		{
 			cout << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
@@ -340,11 +264,6 @@ ForwardList operator+(const ForwardList& left, const ForwardList& right)
 	return buffer;
 }
 void Print(int arr[])
-//в функцию копируется указатель на массив arr, а не весь массив,
-//поэтому будет выведено количество элементов один,
-//а не количество элементов всего массива, так как 
-//sizeof(arr) / sizeof(arr[0]) = 4/4 = 1, а не размер всего массива
-//в байтах делённый на размер одного элемента в байтах;
 {
 	//cout << typeid(arr).name() << endl;
 	//cout << sizeof(arr) << endl;
