@@ -97,6 +97,20 @@ void main()
 		cout << *it << tab;
 	}
 	cout << endl;
+	///////////////////////////////////////////////////////////
+	int index;
+	int value;
+	cout << "Введите индекс добавляемого элемента: "; cin >> index;
+	cout << "Введите значение добавляемого элемента: "; cin >> value;
+	//https://legacy.cplusplus.com/reference/vector/vector/insert/
+	vec.insert(vec.begin() + index, value);
+	for (int i : vec)cout << i << tab; cout << endl;
+	//https://legacy.cplusplus.com/reference/vector/vector/erase/
+	vec.erase(vec.begin() + index);
+	for (int i : vec)cout << i << tab; cout << endl;
+
+
+
 #endif // STL_VECTOR
 	
 }
