@@ -10,6 +10,8 @@
 #include<array>
 #include<vector>
 #include<list>
+#include<iterator>
+#include<algorithm>
 using std::cin;
 using std::cout;
 using std::endl;
@@ -132,6 +134,23 @@ void main()
 	//а арифметика указателей подразумевает переход по адресам в непрерывной области памяти
 	//а наш list(СПИСОК) - элементы в произвольных областях памяти, 
 	//такой вывод элементов  с помощью цикла for не возможен.
+	for (std::list<int>::iterator it = list.begin(); it != list.end(); ++it)
+		cout << *it << tab;
+	cout << endl;
+	int index;
+	int value;
+	cout << "Введите индекс добавляемого элемента: "; cin >> index;
+	cout << "Введите значение добавляемого элемента: "; cin >> value;
+	// создаём итератор, инициализируем его бегином
+	std::list<int>::iterator position = list.begin();
+	// в цикле увеличиваем его на количество элементов
+	//for (int i = 0; i < index; i++)++position;
+	std::advance(position, index);
+	// добавляем position в insert
+	//list.insert(list.begin() + index, value); //так будет ошибка
+	list.insert(position, value);
+	for (int i : list)cout << i << tab; cout << endl;
+	//https://legacy.cplusplus.com/reference/iterator/advance/
 #endif // STL_LIST
 
 }
