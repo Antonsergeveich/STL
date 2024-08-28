@@ -19,7 +19,7 @@ using std::endl;
 #define tab "\t"
 #define delimiter "\n----------------------\n"
 //#define STL_ARRAY
-#define STL_VECTOR
+//#define STL_VECTOR
 //#define STL_LIST
 
 
