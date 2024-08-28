@@ -99,20 +99,28 @@ void main()
 	cout << endl;
 	///////////////////////////////////////////////////////////
 	int index;
+	int index_delete;
 	int value;
+	int number_of_additions;
+	int number_of_deleted;
 	cout << "Введите индекс добавляемого элемента: "; cin >> index;
 	cout << "Введите значение добавляемого элемента: "; cin >> value;
 	//https://legacy.cplusplus.com/reference/vector/vector/insert/
 	vec.insert(vec.begin() + index, value);
 	for (int i : vec)cout << i << tab; cout << endl;
+	cout << "Введите количество добавлений: "; cin >> number_of_additions;
+	//void insert (iterator position, size_type n, const value_type& val);
+	vec.insert(vec.begin() + index, number_of_additions, value);
+	for (int i : vec)cout << i << tab; cout << endl;
 	//https://legacy.cplusplus.com/reference/vector/vector/erase/
+	cout << "Введите индекс удаляемого элемента: "; cin >> index_delete;
 	vec.erase(vec.begin() + index);
 	for (int i : vec)cout << i << tab; cout << endl;
-
-
-
+	//iterator erase (iterator first, iterator last);
+	cout << "Введите количество удаляемых элементов: "; cin >> number_of_deleted;
+	vec.erase(vec.begin() + index_delete, vec.begin() + index_delete + number_of_deleted);
+	for (int i : vec)cout << i << tab; cout << endl;
 #endif // STL_VECTOR
-	
 }
 
 // Для работы с Capacity вектор обеспечивае следующие функции: 
