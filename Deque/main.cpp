@@ -7,6 +7,7 @@ using std::cout;
 using std::endl;
 
 #define tab "\t"
+class Queue;
 
 class List
 {
@@ -31,6 +32,7 @@ class List
 #endif // DEBUG
 		}
 		friend class List;
+		friend class Queue;
 	}*Head, * Tail;  
 	size_t size; 
 	class ConstBaseIterator
@@ -54,6 +56,7 @@ class List
 		{
 			return Temp->Data;
 		}
+		friend class Queue;
 	};
 public:
 	class ConstIterator : public ConstBaseIterator
@@ -83,6 +86,7 @@ public:
 			Temp = Temp->pPrev;
 			return old;
 		}
+		friend class Queue;
 	};
 	class ConstReverseIterator : public ConstBaseIterator
 	{
@@ -113,6 +117,7 @@ public:
 			Temp = Temp->pNext;
 			return old;
 		}
+		friend class Queue;
 	};
 	
 	class Iterator : public ConstIterator
@@ -124,6 +129,7 @@ public:
 		{
 			return Temp->Data;
 		}
+		friend class Queue;
 	};
 	class ReverseIterator :public ConstReverseIterator
 	{
@@ -134,6 +140,7 @@ public:
 		{
 			return Temp->Data;
 		}
+		friend class Queue;
 	};
 
 	Iterator begin()
@@ -168,6 +175,7 @@ public:
 	{
 		return nullptr;
 	}
+
 	List()
 	{
 		Head = Tail = nullptr;
@@ -321,6 +329,7 @@ public:
 		}
 		cout << "Количество элементов в списке: " << size << endl;
 	}
+	friend class Queue;
 };
 
 List operator+(const List& left, const List& right)
@@ -332,10 +341,23 @@ List operator+(const List& left, const List& right)
 	}
 	return buffer;
 }
+//https://legacy.cplusplus.com/reference/queue/queue/
+class Queue :public List {};
 
 void main()
 {
 	setlocale(LC_ALL, "");
-
-
+	Queue Q;
+	Q.push_back(256);
+	Q.push_back(128);
+	Q.push_back(64);
+	Q.push_back(32);
+	Q.push_back(16);
+	Q.push_back(8);
+	Q.print();
+	Q.pop_front();
+	Q.print();
+	Q.erase(3);
+	Q.print();
+	Q.reverse_print();
 }
