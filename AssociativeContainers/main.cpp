@@ -106,13 +106,11 @@ void main()
 	cout << std::left;
 	for (const auto& map : dictionary)
 	{
-		for (auto& vector : dictionary)
-		{
-			cout.width(16);
-			cout << std::left;
-			cout << vector.first;
-		}
-	cout << endl;
+		cout.width(16);
+		cout << std::left;
+		cout << map.first;
+		cout << endl;
 	}
+	cout << endl;
 
 };
