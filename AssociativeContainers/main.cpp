@@ -89,7 +89,7 @@ void main()
 		{"statement", {"утверждение", "заявление", "высказывание"}},
 		{"journey", {"путешествие", "поездка", "рейс"}},
 	};
-	for (std::map<std::string, std::vector<std::string>>::iterator it = dictionary.begin(); it != dictionary.end(); ++it)
+	/*for (std::map<std::string, std::vector<std::string>>::iterator it = dictionary.begin(); it != dictionary.end(); ++it)
 	{
 		cout.width(16);
 		cout << std::left;
@@ -100,5 +100,19 @@ void main()
 			cout << (*jt != it->second.back()?", ":";");
 		}
 		cout << endl;
+	}*/
+
+	cout.width(16);
+	cout << std::left;
+	for (const auto& map : dictionary)
+	{
+		for (auto& vector : dictionary)
+		{
+			cout.width(16);
+			cout << std::left;
+			cout << vector.first;
+		}
+	cout << endl;
 	}
-}
+
+};
