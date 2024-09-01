@@ -104,13 +104,12 @@ void main()
 
 	cout.width(16);
 	cout << std::left;
-	for (const auto& map : dictionary)
+	for (auto& map : dictionary)
 	{
 		cout.width(16);
 		cout << std::left;
-		cout << map.first;
-		cout << endl;
+		cout << map.first << tab;
+		for (auto& c : map.second)cout << c << endl;
 	}
-	cout << endl;
 
 };
