@@ -109,7 +109,8 @@ void main()
 		cout.width(16);
 		cout << std::left;
 		cout << map.first << tab;
-		for (auto& c : map.second)cout << c << endl;
+		for (auto& c : map.second)cout << c << tab;
+		cout << endl;
 	}
 
 };
