@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<map>
 #include<vector>
 
@@ -11,21 +11,21 @@ using std::endl;
 
 //#define STL_MAP
 //#define MULTIMAP
-// Все ассоциативные контейнеры хранят данные ввиде бинарного дерева.
-// Бывают: map, set, multimap, multiset.
+// Р’СЃРµ Р°СЃСЃРѕС†РёР°С‚РёРІРЅС‹Рµ РєРѕРЅС‚РµР№РЅРµСЂС‹ С…СЂР°РЅСЏС‚ РґР°РЅРЅС‹Рµ РІРІРёРґРµ Р±РёРЅР°СЂРЅРѕРіРѕ РґРµСЂРµРІР°.
+// Р‘С‹РІР°СЋС‚: map, set, multimap, multiset.
 void main()
 {
 	setlocale(LC_ALL, "");
 #ifdef STL_MAP
-	// map - это контейнер, каждый элемент которого хранит пару <ключ, значение>
+	// map - СЌС‚Рѕ РєРѕРЅС‚РµР№РЅРµСЂ, РєР°Р¶РґС‹Р№ СЌР»РµРјРµРЅС‚ РєРѕС‚РѕСЂРѕРіРѕ С…СЂР°РЅРёС‚ РїР°СЂСѓ <РєР»СЋС‡, Р·РЅР°С‡РµРЅРёРµ>
 	// pair <key, value>
-	// ключ и значение могут быть любого существующего типа, как одного так и разных
-	// Сортировка в бинарном дереве осуществляется по ключу. Ключи являются уникальными
-	// Разница map - ключи уникальны, multimap - позволяет хранить несколько одинаковых ключей
+	// РєР»СЋС‡ Рё Р·РЅР°С‡РµРЅРёРµ РјРѕРіСѓС‚ Р±С‹С‚СЊ Р»СЋР±РѕРіРѕ СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ С‚РёРїР°, РєР°Рє РѕРґРЅРѕРіРѕ С‚Р°Рє Рё СЂР°Р·РЅС‹С…
+	// РЎРѕСЂС‚РёСЂРѕРІРєР° РІ Р±РёРЅР°СЂРЅРѕРј РґРµСЂРµРІРµ РѕСЃСѓС‰РµСЃС‚РІР»СЏРµС‚СЃСЏ РїРѕ РєР»СЋС‡Сѓ. РљР»СЋС‡Рё СЏРІР»СЏСЋС‚СЃСЏ СѓРЅРёРєР°Р»СЊРЅС‹РјРё
+	// Р Р°Р·РЅРёС†Р° map - РєР»СЋС‡Рё СѓРЅРёРєР°Р»СЊРЅС‹, multimap - РїРѕР·РІРѕР»СЏРµС‚ С…СЂР°РЅРёС‚СЊ РЅРµСЃРєРѕР»СЊРєРѕ РѕРґРёРЅР°РєРѕРІС‹С… РєР»СЋС‡РµР№
 
 	std::map<int, std::string> week =
 	{
-		std::pair<int, std::string>(0, "Sunday"), // явное создание пары
+		std::pair<int, std::string>(0, "Sunday"), // СЏРІРЅРѕРµ СЃРѕР·РґР°РЅРёРµ РїР°СЂС‹
 		std::pair<int, std::string>(1, "Monday"),
 		std::pair<int, std::string>(2, "Tuesday"),
 		std::pair<int, std::string>(3, "Wednesdayday"),
@@ -33,7 +33,7 @@ void main()
 		std::pair<int, std::string>(3, "Wednesdayday"),
 		std::pair<int, std::string>(3, "Wednesdayday"),
 		std::pair<int, std::string>(3, "Wednesdayday"),
-		{4, "Thursday"},  //  не явное создание пары
+		{4, "Thursday"},  //  РЅРµ СЏРІРЅРѕРµ СЃРѕР·РґР°РЅРёРµ РїР°СЂС‹
 		{5, "Friday"},
 		{5, "Friday"},
 		{5, "Friday"},
@@ -55,7 +55,7 @@ void main()
 #ifdef MULTIMAP
 	std::multimap<int, std::string> week =
 	{
-		std::pair<int, std::string>(0, "Sunday"), // явное создание пары
+		std::pair<int, std::string>(0, "Sunday"), // СЏРІРЅРѕРµ СЃРѕР·РґР°РЅРёРµ РїР°СЂС‹
 		std::pair<int, std::string>(1, "Monday"),
 		std::pair<int, std::string>(2, "Tuesday"),
 		std::pair<int, std::string>(3, "Wednesdayday"),
@@ -63,7 +63,7 @@ void main()
 		std::pair<int, std::string>(3, "Wednesdayday"),
 		std::pair<int, std::string>(3, "Wednesdayday"),
 		std::pair<int, std::string>(3, "Wednesdayday"),
-		{4, "Thursday"},  //  не явное создание пары
+		{4, "Thursday"},  //  РЅРµ СЏРІРЅРѕРµ СЃРѕР·РґР°РЅРёРµ РїР°СЂС‹
 		{5, "Friday"},
 		{5, "Friday"},
 		{5, "Friday"},
@@ -84,10 +84,10 @@ void main()
 
 	std::map<std::string, std::vector<std::string>> dictionary =
 	{
-		std::pair<std::string, std::vector<std::string>>("map", {"карта, план, таблица"}),
-		std::pair<std::string, std::vector<std::string>>("window", {"окно", "витрина"}),
-		{"statement", {"утверждение", "заявление", "высказывание"}},
-		{"journey", {"путешествие", "поездка", "рейс"}},
+		std::pair<std::string, std::vector<std::string>>("map", {"РєР°СЂС‚Р°, РїР»Р°РЅ, С‚Р°Р±Р»РёС†Р°"}),
+		std::pair<std::string, std::vector<std::string>>("window", {"РѕРєРЅРѕ", "РІРёС‚СЂРёРЅР°"}),
+		{"statement", {"СѓС‚РІРµСЂР¶РґРµРЅРёРµ", "Р·Р°СЏРІР»РµРЅРёРµ", "РІС‹СЃРєР°Р·С‹РІР°РЅРёРµ"}},
+		{"journey", {"РїСѓС‚РµС€РµСЃС‚РІРёРµ", "РїРѕРµР·РґРєР°", "СЂРµР№СЃ"}},
 	};
 	/*for (std::map<std::string, std::vector<std::string>>::iterator it = dictionary.begin(); it != dictionary.end(); ++it)
 	{
