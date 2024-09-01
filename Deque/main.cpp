@@ -1,4 +1,4 @@
-#include<iostream>
+ï»¿#include<iostream>
 #include <new.h>
 using namespace std;
 
@@ -51,7 +51,7 @@ class List
 		{
 			return this->Temp != other.Temp;
 		}
-		//              Dereference operators (îïåðàòîðû ðàçûèìåíîâàíèÿ):
+		//              Dereference operators (Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ñ‹ Ñ€Ð°Ð·Ñ‹Ð¸Ð¼ÐµÐ½Ð¾Ð²Ð°Ð½Ð¸Ñ):
 		const int& operator*()const
 		{
 			return Temp->Data;
@@ -319,7 +319,7 @@ public:
 		{
 			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
 		}
-		cout << "Êîëè÷åñòâî ýëåìåíòîâ â ñïèñêå: " << size << endl;
+		cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² Ð² ÑÐ¿Ð¸ÑÐºÐµ: " << size << endl;
 	}
 	void reverse_print()
 	{
@@ -327,7 +327,7 @@ public:
 		{
 			cout << Temp->pPrev << tab << Temp << tab << Temp->Data << tab << Temp->pNext << endl;
 		}
-		cout << "Êîëè÷åñòâî ýëåìåíòîâ â ñïèñêå: " << size << endl;
+		cout << "ÐšÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² Ð² ÑÐ¿Ð¸ÑÐºÐµ: " << size << endl;
 	}
 	friend class Queue;
 };
