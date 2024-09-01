@@ -56,28 +56,39 @@ void main()
 	// Придикаты  - функция которая что-то проверяет.
 
 	std::vector<int> vec = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89 };
-	try
+	try // блок кода в котором ловим ошибку
 	{
 		for (int i = 0; i < vec.size(); i++)
 		{
 			cout << vec.at(i) << tab;
+			// https://cplusplus.com/reference/vector/vector/at/
+			//Функция автоматически проверяет, находится ли n в пределах допустимых элементов в векторе
 			//cout << vec[i] << tab;
 		}
 		cout << endl;
 	}
-	catch (const std::exception& e)
+	catch (const std::exception& e) // catch - поймать
+		// обработчик исключения (функция с одним параметром)
+		// у блока try должен быть минимум один обработчик, их может быть много.
+	    // После обработки исключений программа работает нормально и нет потерь данных и ошибок.
+		// У try не может быть двух обработчиков одного типа.
 	{
-		std::cerr << e.what() << endl;
+		std::cerr << e.what() << endl; // cerr - поток который выводит сообщения об ошибках.
+		// what() - выводит сообщение об ошибке.
+	}
+	catch (...) // по умолчанию
+	{
+		cerr << " Какая-то ошибка" << endl;
 	}
 	vector_properties(vec);
-	
+
 	vec.push_back(144);
 	vector_properties(vec);
-	
+
 	vec.resize(12);      // задаёт фактический размер вектора
 	for (int i : vec)cout << i << tab; cout << endl;
 	vector_properties(vec);
-	
+
 	vec.shrink_to_fit(); // урезает вместительность до фактического размера
 	for (int i : vec)cout << i << tab; cout << endl;
 	vector_properties(vec);
