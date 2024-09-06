@@ -123,7 +123,7 @@ public:
 
 std::ostream& operator<<(std::ostream& os, const Timer& obj)
 {
-	return os << obj.get_min() << " минут, " << obj.get_hour() << " часов, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year();
+	return os << obj.get_min() << " минут, " << obj.get_hour() << " часов, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year() << "г.";
 }
 
 void main()
