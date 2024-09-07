@@ -1,6 +1,7 @@
 #include<iostream>
 #include<map>
 #include<time.h>
+#include <list>
 using namespace std;
 
 using std::cout;
@@ -21,6 +22,8 @@ std::map<int, std::string> violation =
 	{7, "Проезд на красный сигнал светофора"},
 	{8, "Не подчинение сотруднику полиции"},
 };
+
+
 
 class Violation
 {
@@ -104,14 +107,21 @@ public:
 std::ostream& operator<<(std::ostream& os, const Violation& obj)
 {
 	//https://legacy.cplusplus.com/reference/map/map/operator[]/
-	return os << violation[obj.get_number()] << " the offense " << obj.get_address()<< " " << obj.get_min() << " минут, " << obj.get_hour() << " часов, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year() << "г.";
+	return os << violation[obj.get_number()] << "\tthe offense\t" << obj.get_address()<< "\t" << obj.get_min() << " минут, " << obj.get_hour() << " часов, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year() << "г.";
 }
+
+std::map<std::string, std::list<Violation>> base =
+{
+	{"a333aa", {Violation(8, " st.Kozlova ", 12, 8, 7, "september", 2000)}},
+	{"b111bb", {Violation(7, " st.Medvedeva ", 1,2,3," july ", 1998)}},
+	{"c222cc", {Violation(6, " st.Kurochkina ", 4, 5, 6, " august ", 2001)}},
+};
 
 void main()
 {
 	setlocale(LC_ALL, "");
 	Violation V(1, " st.Pushkina", 44, 16, 5, "september", 2021);
-	Violation A(2, " st.Pershina", 03, 16, 5, "september", 2021);
+	Violation A(2, " st.Lermontova", 03, 16, 5, "september", 2021);
 	Violation B(3, " st.Ivanova", 12, 16, 5, "september", 2021);
 	Violation C(4, " st.Petrova", 3, 16, 5, "september", 2021);
 	Violation D(5, " st.Sidorova", 56, 16, 5, "september", 2021);
@@ -120,4 +130,13 @@ void main()
 	cout << B << endl;
 	cout << C << endl;
 	cout << D << endl;
+	cout << endl;
+	for (std::map<std::string, std::list<Violation>>::iterator it = base.begin(); it != base.end(); ++it)
+	{
+		cout << it->first << "\t";
+		for (std::list<Violation>::iterator vit = it->second.begin(); vit != it->second.end(); ++vit)
+		{
+			cout << * vit << endl;
+		}
+	}
 }
