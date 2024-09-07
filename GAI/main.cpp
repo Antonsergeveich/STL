@@ -1,9 +1,7 @@
 ﻿#include<iostream>
 #include<map>
-#include<time.h>
 #include <list>
 using namespace std;
-
 using std::cout;
 using std::cin;
 using std::endl;
@@ -22,9 +20,6 @@ std::map<int, std::string> violation =
 	{7, "Проезд на красный сигнал светофора"},
 	{8, "Не подчинение сотруднику полиции"},
 };
-
-
-
 class Violation
 {
 	int number; // номер правонарушения
