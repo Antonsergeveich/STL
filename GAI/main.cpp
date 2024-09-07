@@ -8,10 +8,7 @@ using std::cin;
 using std::endl;
 using std::cerr;
 
-namespace GAI {};
-
-class Timer;
-class Violation;
+#define TIME int min, int hour,int day, string month, int year
 
 std::map<int, std::string> violation =
 {
@@ -25,12 +22,12 @@ std::map<int, std::string> violation =
 	{8, "Ќе подчинение сотруднику полиции"},
 };
 
-
-class Violation 
+class Violation
 {
 	int number; // номер правонарушени€
 	std::string address; // адрес правонарушени€
-	//Timer timer; // ¬рем€ правонарушени€
+	int min, hour, day, year;
+	string month;
 public:
 	int get_number()const
 	{
@@ -40,27 +37,6 @@ public:
 	{
 		return address;
 	}
-	void set_number(int number)
-	{
-		this->number = number;
-	}
-	void set_address(const std::string& address)
-	{
-		this->address = address;
-	}
-
-	~Violation() {}
-};
-
-class Timer
-{
-protected:
-	int min;
-	int hour;
-	int day;
-	std::string month;
-	int year;
-public:
 	int get_min()const
 	{
 		return min;
@@ -80,6 +56,14 @@ public:
 	int get_year()const
 	{
 		return year;
+	}
+	void set_number(int number)
+	{
+		this->number = number;
+	}
+	void set_address(const std::string& address)
+	{
+		this->address = address;
 	}
 	void set_min(int min)
 	{
@@ -104,31 +88,27 @@ public:
 	{
 		this->year = year;
 	}
-	Timer(const std::string& month)
+	Violation(int number, const std::string& address, TIME)
 	{
-		set_month(month);
-	}
-	Timer(int min, int hour, int day, const std::string& month, int year)
-	{
+		set_number(number);
+		set_address(address);
 		set_min(min);
 		set_hour(hour);
 		set_day(day);
 		set_month(month);
 		set_year(year);
 	}
-	~Timer() {}
-
-	friend class Violation;
+	~Violation() {}
 };
 
-std::ostream& operator<<(std::ostream& os, const Timer& obj)
+std::ostream& operator<<(std::ostream& os, const Violation& obj)
 {
-	return os << obj.get_min() << " минут, " << obj.get_hour() << " часов, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year() << "г.";
+	return os << obj.get_number() << " the offense " << obj.get_address()<< " " << obj.get_min() << " минут, " << obj.get_hour() << " часов, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year() << "г.";
 }
 
 void main()
 {
 	setlocale(LC_ALL, "");
-	Timer timer(5,15,5,"декабр€",2021);
-	cout << timer;
-};
+	Violation V(12, " st.Pushkina", 44, 16, 5, "september", 2021);
+	cout << V << endl;
+}
