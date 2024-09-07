@@ -103,12 +103,21 @@ public:
 
 std::ostream& operator<<(std::ostream& os, const Violation& obj)
 {
-	return os << obj.get_number() << " the offense " << obj.get_address()<< " " << obj.get_min() << " минут, " << obj.get_hour() << " часов, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year() << "г.";
+	//https://legacy.cplusplus.com/reference/map/map/operator[]/
+	return os << violation[obj.get_number()] << " the offense " << obj.get_address()<< " " << obj.get_min() << " минут, " << obj.get_hour() << " часов, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year() << "г.";
 }
 
 void main()
 {
 	setlocale(LC_ALL, "");
-	Violation V(12, " st.Pushkina", 44, 16, 5, "september", 2021);
+	Violation V(1, " st.Pushkina", 44, 16, 5, "september", 2021);
+	Violation A(2, " st.Pershina", 03, 16, 5, "september", 2021);
+	Violation B(3, " st.Ivanova", 12, 16, 5, "september", 2021);
+	Violation C(4, " st.Petrova", 3, 16, 5, "september", 2021);
+	Violation D(5, " st.Sidorova", 56, 16, 5, "september", 2021);
 	cout << V << endl;
+	cout << A << endl;
+	cout << B << endl;
+	cout << C << endl;
+	cout << D << endl;
 }
