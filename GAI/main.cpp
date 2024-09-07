@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 #include<map>
 #include<time.h>
 #include <list>
@@ -13,22 +13,22 @@ using std::cerr;
 
 std::map<int, std::string> violation =
 {
-	{1, "Выпивший"},
-	{2, "Пересечение двойной сплошной"},
-	{3, "Остановка запрещена"},
-	{4, "Стоянка запрещена"},
-	{5, "Превышение скорости"},
-	{6, "Не пристёгнут ремень безопасности"},
-	{7, "Проезд на красный сигнал светофора"},
-	{8, "Не подчинение сотруднику полиции"},
+	{1, "Р’С‹РїРёРІС€РёР№"},
+	{2, "РџРµСЂРµСЃРµС‡РµРЅРёРµ РґРІРѕР№РЅРѕР№ СЃРїР»РѕС€РЅРѕР№"},
+	{3, "РћСЃС‚Р°РЅРѕРІРєР° Р·Р°РїСЂРµС‰РµРЅР°"},
+	{4, "РЎС‚РѕСЏРЅРєР° Р·Р°РїСЂРµС‰РµРЅР°"},
+	{5, "РџСЂРµРІС‹С€РµРЅРёРµ СЃРєРѕСЂРѕСЃС‚Рё"},
+	{6, "РќРµ РїСЂРёСЃС‚С‘РіРЅСѓС‚ СЂРµРјРµРЅСЊ Р±РµР·РѕРїР°СЃРЅРѕСЃС‚Рё"},
+	{7, "РџСЂРѕРµР·Рґ РЅР° РєСЂР°СЃРЅС‹Р№ СЃРёРіРЅР°Р» СЃРІРµС‚РѕС„РѕСЂР°"},
+	{8, "РќРµ РїРѕРґС‡РёРЅРµРЅРёРµ СЃРѕС‚СЂСѓРґРЅРёРєСѓ РїРѕР»РёС†РёРё"},
 };
 
 
 
 class Violation
 {
-	int number; // номер правонарушения
-	std::string address; // адрес правонарушения
+	int number; // РЅРѕРјРµСЂ РїСЂР°РІРѕРЅР°СЂСѓС€РµРЅРёСЏ
+	std::string address; // Р°РґСЂРµСЃ РїСЂР°РІРѕРЅР°СЂСѓС€РµРЅРёСЏ
 	int min, hour, day, year;
 	string month;
 public:
@@ -107,7 +107,7 @@ public:
 std::ostream& operator<<(std::ostream& os, const Violation& obj)
 {
 	//https://legacy.cplusplus.com/reference/map/map/operator[]/
-	return os << violation[obj.get_number()] << "\tthe offense\t" << obj.get_address()<< "\t" << obj.get_min() << " минут, " << obj.get_hour() << " часов, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year() << "г.";
+	return os << violation[obj.get_number()] << "\tthe offense\t" << obj.get_address()<< "\t" << obj.get_min() << " РјРёРЅСѓС‚, " << obj.get_hour() << " С‡Р°СЃРѕРІ, " << obj.get_day() << " " << obj.get_month() << ", " << obj.get_year() << "Рі.";
 }
 
 std::map<std::string, std::list<Violation>> base =
